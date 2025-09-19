@@ -1,4 +1,4 @@
-package com.gyl.bys.architecture;
+package com.martin.alderete.hexagonal.hexagonalPuro.architecture;
 
 import com.tngtech.archunit.core.domain.JavaAnnotation;
 import com.tngtech.archunit.core.domain.JavaClass;
