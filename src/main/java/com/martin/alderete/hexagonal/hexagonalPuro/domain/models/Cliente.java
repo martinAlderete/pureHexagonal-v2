@@ -1,0 +1,21 @@
+package com.gyl.bys.domain.models;
+
+import com.gyl.bys.domain.models.abs.DomainEntity;
+
+public class Cliente extends DomainEntity {
+
+    private String nombreFantasia;
+
+    public Cliente(Long id, String nombreFantasia) {
+        super(id);
+        this.nombreFantasia = nombreFantasia;
+    }
+
+    public String getNombreFantasia() {
+        return nombreFantasia;
+    }
+
+    public void setNombreFantasia(String nombreFantasia) {
+        this.nombreFantasia = nombreFantasia;
+    }
+}
