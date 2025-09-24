@@ -1,5 +1,6 @@
 package com.gyl.bys.infrastructure.entities;
 
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,11 +12,14 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "etapa")
-public class EtapaEntity {
+@Table(name = "industria")
+public class IndustriaEntity {
+
     @Id
-    @GeneratedValue(strategy= GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false, updatable = false)
+
     private String nombre;
+
+
 }

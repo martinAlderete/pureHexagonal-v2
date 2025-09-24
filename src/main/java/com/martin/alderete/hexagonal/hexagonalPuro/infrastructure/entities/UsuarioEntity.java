@@ -1,13 +1,17 @@
 package com.gyl.bys.infrastructure.entities;
 
+import com.gyl.bys.domain.VO.EstadoUsuario;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.core.user.OAuth2User;
+
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -18,7 +22,7 @@ import java.util.stream.Collectors;
 @Entity
 @Builder
 @Table(name = "usuario")
-public class UsuarioEntity implements UserDetails {
+public class UsuarioEntity implements UserDetails, OAuth2User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,9 +31,12 @@ public class UsuarioEntity implements UserDetails {
     @Column(unique = true, nullable = false)
     private String email;
 
+    @Column
     private String password;
 
-    private boolean isEnabled;
+    @Enumerated(EnumType.STRING)
+    private EstadoUsuario estado;
+
     private boolean isAccountNonExpired;
     private boolean isAccountNonLocked;
     private boolean isCredentialsNonExpired;
@@ -59,9 +66,13 @@ public class UsuarioEntity implements UserDetails {
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<GrupoFavoritoEntity> gruposFavoritos = new HashSet<>();
 
+    @Transient
+    private Map<String, Object> attributes;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles.stream()
+                .filter(RolEntity::isActivo)
                 .map(rol -> new SimpleGrantedAuthority(rol.getNombre()))
                 .collect(Collectors.toList());
     }
@@ -93,8 +104,12 @@ public class UsuarioEntity implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return this.isEnabled;
+        return this.estado == EstadoUsuario.ACTIVO;
+
     }
+    @Override
+    public Map<String, Object> getAttributes() { return attributes; }
 
-
+    @Override
+    public String getName() { return this.email; }
 }

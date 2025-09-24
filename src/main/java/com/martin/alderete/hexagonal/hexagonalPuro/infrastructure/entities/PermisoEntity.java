@@ -2,20 +2,22 @@ package com.gyl.bys.infrastructure.entities;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
 @AllArgsConstructor
-@NoArgsConstructor
+@Builder
 @Entity
-@Table(name = "etapa")
-public class EtapaEntity {
+@Table(name = "permiso")
+public class PermisoEntity {
+
     @Id
-    @GeneratedValue(strategy= GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false, updatable = false)
+
+    @Column(unique = true, nullable = false)
     private String nombre;
 }

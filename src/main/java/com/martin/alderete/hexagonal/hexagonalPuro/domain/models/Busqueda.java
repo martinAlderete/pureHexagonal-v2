@@ -6,10 +6,19 @@ import com.gyl.bys.domain.models.abs.DomainEntity;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-public class Busqueda extends DomainEntity {
+// TODO: Refactorizar:
+// 1. Eliminar por completo los `setters` públicos. Las modificaciones de estado deben hacerse
+//    a través de métodos de negocio con nombres explícitos (ej. `actualizarObservaciones(String obs)`).
+// 2. Separar la creación de la reconstitución:
+//    - El constructor del `Builder` no debe recibir el `id`. Debe recibir solo los parámetros
+//      mínimos y obligatorios para la CREACIÓN de una nueva Búsqueda.
+// 3. Crear un `static factory method` llamado `reconstitute(...)` que reciba todos los
+//    parámetros (incluido el `id`) para reconstruir un objeto desde la base de datos.
 
+public class Busqueda extends DomainEntity {
 
     private String nombre;
     private LocalDateTime fechaCreacion;
@@ -25,52 +34,43 @@ public class Busqueda extends DomainEntity {
     private Profesion profesion;
     private ModalidadContratacion modalidadContratacion;
     private Disponibilidad disponibilidad;
-    
-    // arreglar , si se quiere inferir la lista por un posible NULL o vacio se debe hacer en un SETTER TODO
+
     private List<Seniority> seniorities = new ArrayList<>();
     private List<Habilidad> habilidades = new ArrayList<>();
     private List<Usuario> reclutadores = new ArrayList<>();
     private List<HistorialEstadoBusqueda> historialEstados = new ArrayList<>();
 
-
-
-    // ejemplo para utilizar el builder
-
-     /*
-      public void ejemploDeComoCrearlo (){
-        Busqueda bus= new Busqueda.Builder(100L)
-                                  .vacantes(2)
-                                  .addReclutador(null)
-                                  .linkJob("link de linkedin")
-                                  .build();
-    }
-      */
-
-
-
     /*Comportamiento*/
 
+    // <--- VERIFICACIÓN DE CICLO DE VIDA ---
     public void cambiarEstado(Estado nuevoEstado) {
+        // Validación de pre-condiciones del método
+        if (nuevoEstado == null) {
+            throw new IllegalArgumentException("El nuevo estado no puede ser nulo.");
+        }
+        if (this.fechaFinalizacion != null) {
+            throw new IllegalStateException("No se puede cambiar el estado de una búsqueda que ya ha finalizado.");
+        }
+
+        // Lógica original
         if (this.historialEstados == null) {
             this.historialEstados = new ArrayList<>();
         }
-        this.historialEstados.add(new HistorialEstadoBusqueda(null,nuevoEstado, LocalDateTime.now()));
+        this.historialEstados.add(new HistorialEstadoBusqueda(nuevoEstado, LocalDateTime.now()));
         this.fechaActualizacion = LocalDateTime.now();
     }
 
-
-
-
-
-
-
-   /*Getter y Setter */
+    /*Getter y Setter */
 
     public String getNombre() {
         return nombre;
     }
 
     public void setNombre(String nombre) {
+        // <--- VERIFICACIÓN EN SETTER ---
+        if (nombre == null || nombre.isBlank()) {
+            throw new IllegalArgumentException("El nombre no puede ser nulo o vacío.");
+        }
         this.nombre = nombre;
     }
 
@@ -103,6 +103,10 @@ public class Busqueda extends DomainEntity {
     }
 
     public void setVacantes(Integer vacantes) {
+        // <--- VERIFICACIÓN EN SETTER ---
+        if (vacantes == null || vacantes <= 0) {
+            throw new IllegalArgumentException("El número de vacantes debe ser un entero positivo.");
+        }
         this.vacantes = vacantes;
     }
 
@@ -170,43 +174,44 @@ public class Busqueda extends DomainEntity {
         this.disponibilidad = disponibilidad;
     }
 
+    // <--- PROTECCIÓN DE COLECCIONES ---
     public List<Seniority> getSeniorities() {
-        return seniorities;
+        return Collections.unmodifiableList(seniorities);
     }
 
     public void setSeniorities(List<Seniority> seniorities) {
-        this.seniorities = seniorities;
+        this.seniorities = (seniorities != null) ? seniorities : new ArrayList<>();
     }
 
     public List<Habilidad> getHabilidades() {
-        return habilidades;
+        return Collections.unmodifiableList(habilidades);
     }
 
     public void setHabilidades(List<Habilidad> habilidades) {
-        this.habilidades = habilidades;
+        this.habilidades = (habilidades != null) ? habilidades : new ArrayList<>();
     }
 
     public List<Usuario> getReclutadores() {
-        return reclutadores;
+        return Collections.unmodifiableList(reclutadores);
     }
 
     public void setReclutadores(List<Usuario> reclutadores) {
-        this.reclutadores = reclutadores;
+        this.reclutadores = (reclutadores != null) ? reclutadores : new ArrayList<>();
     }
 
     public List<HistorialEstadoBusqueda> getHistorialEstados() {
-        return historialEstados;
+        return Collections.unmodifiableList(historialEstados);
     }
 
     public void setHistorialEstados(List<HistorialEstadoBusqueda> historialEstados) {
-        this.historialEstados = historialEstados;
+        this.historialEstados = (historialEstados != null) ? historialEstados : new ArrayList<>();
     }
 
 
     /*Builder*/
 
     private Busqueda(Builder builder) {
-        super(builder.id); // <-- obligatorio
+        super(builder.id);
         this.nombre = builder.nombre;
         this.fechaCreacion = builder.fechaCreacion;
         this.fechaActualizacion = builder.fechaActualizacion;
@@ -227,7 +232,7 @@ public class Busqueda extends DomainEntity {
     }
 
     public static class Builder extends BaseBuilder<Busqueda, Builder> {
-        private final Long id; // obligatorio
+        private final Long id;
         private String nombre;
         private LocalDateTime fechaCreacion;
         private LocalDateTime fechaActualizacion;
@@ -249,7 +254,7 @@ public class Busqueda extends DomainEntity {
         private List<HistorialEstadoBusqueda> historialEstados = new ArrayList<>();
 
         public Builder(Long id) {
-            this.id = id; // validación se hace en DomainEntity
+            this.id = id;
         }
 
         public Builder nombre(String nombre) { this.nombre = nombre; return self(); }
@@ -279,8 +284,24 @@ public class Busqueda extends DomainEntity {
 
         @Override
         protected Busqueda buildEntity() {
+            // <--- VERIFICACIONES DE CREACIÓN ---
+            if (nombre == null || nombre.isBlank()) {
+                throw new IllegalStateException("El nombre de la búsqueda es obligatorio para su creación.");
+            }
+            if (vacantes == null || vacantes <= 0) {
+                throw new IllegalStateException("El número de vacantes debe ser un entero positivo para la creación.");
+            }
+            if (cliente == null) {
+                throw new IllegalStateException("El cliente es un dato obligatorio para la creación de una búsqueda.");
+            }
+            if (profesion == null) {
+                throw new IllegalStateException("La profesión es un dato obligatorio para la creación de una búsqueda.");
+            }
+            if (historialEstados == null || historialEstados.isEmpty()) {
+                throw new IllegalStateException("La búsqueda debe crearse con al menos un estado inicial.");
+            }
+
             return new Busqueda(this);
         }
     }
-
 }

@@ -41,6 +41,9 @@ public class HistorialEtapaPostulacion extends DomainEntity {
     }
 
     public void setFechaInicio(LocalDateTime fechaInicio) {
+        if (fechaInicio == null) {
+            throw  new IllegalArgumentException("La fecha de inicio de la etapa no puede ser nula");
+        }
         this.fechaInicio = fechaInicio;
     }
 
@@ -57,6 +60,9 @@ public class HistorialEtapaPostulacion extends DomainEntity {
     }
 
     public void setEtapa(Etapa etapa) {
+        if (etapa == null) {
+            throw  new IllegalArgumentException("Una etapa debe estar asociada a una postulación");
+        }
         this.etapa = etapa;
     }
 
@@ -65,6 +71,9 @@ public class HistorialEtapaPostulacion extends DomainEntity {
     }
 
     public void setPostulacion(Postulacion postulacion) {
+        if (postulacion == null) {
+            throw  new IllegalArgumentException("Una postulación debe estar asociada a una etapa");
+        }
         this.postulacion = postulacion;
     }
 

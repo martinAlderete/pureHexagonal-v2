@@ -4,12 +4,15 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
 @AllArgsConstructor
-@Entity
+@NoArgsConstructor
 @Builder
+@Entity
 @Table(name = "rol")
 public class RolEntity {
 
@@ -19,16 +22,17 @@ public class RolEntity {
 
     private String nombre;
 
-    @Column(name = "fecha_creacion")
+    @Column(name = "fecha_creacion", nullable = false, updatable = false)
     private LocalDateTime fechaCreacion;
 
-    public RolEntity() {
-    }
+    @Column(nullable = false)
+    private boolean activo;
 
-    public RolEntity(String nombre) {
-        this.nombre = nombre;
-        this.fechaCreacion = LocalDateTime.now();
-    }
-
-
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "rol_permiso",
+            joinColumns = @JoinColumn(name = "rol_id"),
+            inverseJoinColumns = @JoinColumn(name = "permiso_id")
+    )
+    private Set<PermisoEntity> permisos = new HashSet<>();
 }

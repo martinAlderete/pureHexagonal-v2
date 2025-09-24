@@ -42,6 +42,9 @@ public class Postulacion extends DomainEntity {
     }
 
     public void setFechaCreacion(LocalDateTime fechaCreacion) {
+        if (fechaCreacion == null) {
+            throw new IllegalArgumentException("Una Postulación debe tener una fecha de creación");
+        }
         this.fechaCreacion = fechaCreacion;
     }
 
@@ -50,6 +53,9 @@ public class Postulacion extends DomainEntity {
     }
 
     public void setFechaPostulacion(LocalDateTime fechaPostulacion) {
+        if (fechaPostulacion == null) {
+            throw new IllegalArgumentException("Una Postulación debe tener una fecha de postulación");
+        }
         this.fechaPostulacion = fechaPostulacion;
     }
 
@@ -58,6 +64,9 @@ public class Postulacion extends DomainEntity {
     }
 
     public void setUsuario(Usuario usuario) {
+        if (usuario == null) {
+            throw new IllegalArgumentException("Una Postulación debe estar asociada a un usuario");
+        }
         this.usuario = usuario;
     }
 
@@ -66,6 +75,9 @@ public class Postulacion extends DomainEntity {
     }
 
     public void setCandidato(Candidato candidato) {
+        if (candidato == null) {
+            throw new IllegalArgumentException("Una Postulación debe estar asociada a un candidato");
+        }
         this.candidato = candidato;
     }
 
@@ -74,6 +86,9 @@ public class Postulacion extends DomainEntity {
     }
 
     public void setBusqueda(Busqueda busqueda) {
+        if (busqueda == null) {
+            throw new IllegalArgumentException("Una Postulación debe estar asociada a una busqueda");
+        }
         this.busqueda = busqueda;
     }
 

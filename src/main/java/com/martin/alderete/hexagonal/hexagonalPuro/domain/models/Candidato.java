@@ -43,6 +43,9 @@ public class Candidato extends DomainEntity {
     }
 
     public void setNombre(String nombre) {
+        if (nombre == null || nombre.isBlank()) {
+            throw new IllegalArgumentException("El nombre no puede ser nulo o vacío.");
+        }
         this.nombre = nombre;
     }
 
@@ -51,6 +54,9 @@ public class Candidato extends DomainEntity {
     }
 
     public void setApellido(String apellido) {
+        if (apellido == null || apellido.isBlank()) {
+            throw new IllegalArgumentException("El apellido no puede ser nulo o vacío.");
+        }
         this.apellido = apellido;
     }
 
@@ -59,6 +65,9 @@ public class Candidato extends DomainEntity {
     }
 
     public void setCuil(int cuil) {
+        if (cuil <= 0) {
+            throw new IllegalArgumentException("El CUIL debe ser un número positivo.");
+        }
         this.cuil = cuil;
     }
 
@@ -67,6 +76,9 @@ public class Candidato extends DomainEntity {
     }
 
     public void setDni(int dni) {
+        if (dni <= 0) {
+            throw new IllegalArgumentException("El DNI debe ser un número positivo.");
+        }
         this.dni = dni;
     }
 
@@ -75,6 +87,9 @@ public class Candidato extends DomainEntity {
     }
 
     public void setEmail(String email) {
+        if (email == null || !email.contains("@")) {
+            throw new IllegalArgumentException("El email debe ser válido.");
+        }
         this.email = email;
     }
 
@@ -94,11 +109,12 @@ public class Candidato extends DomainEntity {
         this.observaciones = observaciones;
     }
 
-    public int getTelefono() {
-        return telefono;
-    }
+    public int getTelefono() {return telefono;}
 
     public void setTelefono(int telefono) {
+        if (telefono <= 0) {
+            throw new IllegalArgumentException("El teléfono debe ser un número positivo.");
+        }
         this.telefono = telefono;
     }
 

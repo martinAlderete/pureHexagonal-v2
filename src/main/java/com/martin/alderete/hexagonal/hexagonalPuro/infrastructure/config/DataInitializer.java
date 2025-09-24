@@ -1,5 +1,6 @@
 package com.gyl.bys.infrastructure.config;
 
+import com.gyl.bys.domain.VO.EstadoUsuario; // <-- Importar el enum
 import com.gyl.bys.infrastructure.entities.RolEntity;
 import com.gyl.bys.infrastructure.entities.UsuarioEntity;
 import com.gyl.bys.infrastructure.repositories.RolRepository;
@@ -27,9 +28,24 @@ public class DataInitializer implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         if (rolRepository.count() == 0) {
-            rolRepository.save(new RolEntity("ADMIN"));
-            rolRepository.save(new RolEntity("RECLUTADOR"));
-            rolRepository.save(new RolEntity("COMERCIAL"));
+            // --- CORRECCIÓN 1: Usar el Builder para crear los roles ---
+            rolRepository.save(RolEntity.builder()
+                    .nombre("ADMIN")
+                    .fechaCreacion(LocalDateTime.now())
+                    .activo(true)
+                    .build());
+
+            rolRepository.save(RolEntity.builder()
+                    .nombre("RECLUTADOR")
+                    .fechaCreacion(LocalDateTime.now())
+                    .activo(true)
+                    .build());
+
+            rolRepository.save(RolEntity.builder()
+                    .nombre("COMERCIAL")
+                    .fechaCreacion(LocalDateTime.now())
+                    .activo(true)
+                    .build());
         }
 
         if (!usuarioRepository.findByEmail("admin@bys.com").isPresent()) {
@@ -43,7 +59,10 @@ public class DataInitializer implements CommandLineRunner {
             adminUser.setPassword(passwordEncoder.encode("admin123"));
             adminUser.setFechaAlta(LocalDateTime.now());
             adminUser.setRoles(Set.of(adminRol));
-            adminUser.setEnabled(true);
+
+            // --- CORRECCIÓN 2: Usar setEstado() en lugar de setEnabled() ---
+            adminUser.setEstado(EstadoUsuario.ACTIVO);
+
             adminUser.setAccountNonExpired(true);
             adminUser.setAccountNonLocked(true);
             adminUser.setCredentialsNonExpired(true);

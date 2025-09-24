@@ -16,12 +16,14 @@ public class PostulacionEtapaEntity {
     @Id
     @GeneratedValue(strategy= GenerationType.SEQUENCE)
     private Long id;
-    @Column(name = "fecha_inicio")
+    @Column(name = "fecha_inicio", nullable = false, updatable = false)
     private LocalDateTime fechaInicio;
     @Column(name = "fecha_finalizacion")
     private LocalDateTime fechaFinalizacion;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "etapa_id", nullable = false)
     private EtapaEntity etapa;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "postulacion_id", nullable = false)
     private PostulacionEntity postulacion;
 }

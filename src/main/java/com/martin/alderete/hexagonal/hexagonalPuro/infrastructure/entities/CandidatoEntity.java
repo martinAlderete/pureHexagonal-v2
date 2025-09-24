@@ -21,14 +21,19 @@ public class CandidatoEntity {
     private Long id;
 
 
+    @Column(nullable = false)
     private String nombre;
 
+    @Column(nullable = false)
     private String apellido;
 
+    @Column(nullable = false)
     private int cuil;
 
+    @Column(nullable = false)
     private int dni;
 
+    @Column(nullable = false, unique = true)
     private String email;
 
     private String linkedin;

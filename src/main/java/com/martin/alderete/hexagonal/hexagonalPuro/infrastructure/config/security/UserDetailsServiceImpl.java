@@ -22,4 +22,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         return usuarioRepository.findByEmail(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
     }
+
+
+    public UserDetails loadUserById(Long id) throws UsernameNotFoundException {
+        return usuarioRepository.findById(id)
+                .orElseThrow(() -> new UsernameNotFoundException("Usuario con id " + id + " no encontrado"));
+    }
 }

@@ -33,6 +33,9 @@ public class GrupoFavorito  extends DomainEntity {
     }
 
     public void setNombre(String nombre) {
+        if (nombre == null || nombre.isBlank()) {
+            throw new IllegalArgumentException("El nombre no puede ser nulo o vacío.");
+        }
         this.nombre = nombre;
     }
 
@@ -41,6 +44,9 @@ public class GrupoFavorito  extends DomainEntity {
     }
 
     public void setUsuario_id(Long usuario_id) {
+        if (usuario_id == null || usuario_id <= 0) {
+            throw new IllegalArgumentException("El ID de usuario debe ser un número positivo.");
+        }
         this.usuario_id = usuario_id;
     }
 
