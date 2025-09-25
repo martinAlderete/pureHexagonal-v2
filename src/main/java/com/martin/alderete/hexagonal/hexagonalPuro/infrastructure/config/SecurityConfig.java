@@ -23,29 +23,31 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableMethodSecurity
 public class SecurityConfig {
 
-
-
     @Bean
     public SecurityFilterChain securityFilterChain(
             HttpSecurity http,
-            JwtAuthenticationFilter jwtAuthFilter,
-            AuthenticationProvider authenticationProvider,
             CustomOAuth2UserService customOAuth2UserService,
-            OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler
+            OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler,
+            AuthenticationProvider authenticationProvider, // Volvemos a inyectar
+            JwtAuthenticationFilter jwtAuthFilter          // Volvemos a inyectar
     ) throws Exception {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/**","/login/oauth2/code/google").permitAll()
+                        .requestMatchers("/api/auth/**").permitAll()
+                        // Ya no es necesario permitir /oauth2/** aquí
                         .anyRequest().authenticated()
                 )
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)) // Sesión controlada
+                .authenticationProvider(authenticationProvider) // Re-añadimos el proveedor
+                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class) // Re-añadimos el filtro
                 .oauth2Login(oauth2 -> {
-                    oauth2.userInfoEndpoint(userInfo -> userInfo.userService(customOAuth2UserService));
-                    oauth2.successHandler(oAuth2LoginSuccessHandler);
-                })
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authenticationProvider(authenticationProvider)
-                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+                    oauth2.userInfoEndpoint(userInfo ->
+                            userInfo.userService(customOAuth2UserService) // Forzamos el uso de nuestro servicio
+                    );
+                    oauth2.successHandler(oAuth2LoginSuccessHandler); // Usamos nuestro manejador de éxito
+                });
+
         return http.build();
     }
 

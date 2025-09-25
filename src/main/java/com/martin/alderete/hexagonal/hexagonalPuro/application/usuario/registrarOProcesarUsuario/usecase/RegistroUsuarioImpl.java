@@ -26,21 +26,23 @@ public class RegistroUsuarioImpl implements RegistroUsuario {
     }
 
     @Override
-    public void registrarOProcesarUsuario(RegistroUsuarioRequest request) {
-
+    public Optional<Usuario> registrarOProcesarUsuario(RegistroUsuarioRequest request) { // Devuelve Optional<Usuario>
         Optional<Usuario> usuarioExistente = usuarioModelPort.findByEmail(request.email());
 
-        if(usuarioExistente.isPresent()) return;
+        // Si el usuario ya existe, lo devolvemos directamente.
+        if(usuarioExistente.isPresent()) {
+            return usuarioExistente;
+        }
 
+        // Si es un usuario nuevo, lo creamos y guardamos.
         String hashPassword = (request.password() != null) ? passwordEncoderModelPort.encode(request.password()) : null;
-
         Usuario usuarioNuevo = Usuario.registrarNuevoUsuario(request.email(), hashPassword, request.googleId());
 
-        usuarioModelPort.save(usuarioNuevo);
-        notificacionAdminModelPort.notificarNuevoUsuarioPendiente(usuarioNuevo);
+        Usuario usuarioGuardado = usuarioModelPort.save(usuarioNuevo);
+        notificacionAdminModelPort.notificarNuevoUsuarioPendiente(usuarioGuardado);
 
-        throw new UsuarioPendienteDeAprobacionException("Su solicitud ha sido enviada y está pendiente de aprobación.");
-
+        // Devolvemos el usuario recién creado. NO lanzamos excepción.
+        return Optional.of(usuarioGuardado);
     }
 
 }

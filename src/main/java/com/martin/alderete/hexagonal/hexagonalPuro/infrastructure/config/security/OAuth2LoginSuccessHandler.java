@@ -3,6 +3,8 @@ package com.gyl.bys.infrastructure.config.security;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService; // <-- Importante
@@ -17,6 +19,7 @@ public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
     private final JwtUtils jwtUtils;
     // --- CAMBIO 1: Inyectamos UserDetailsService para poder buscar a nuestro usuario ---
     private final UserDetailsService userDetailsService;
+    private static final Logger log = LoggerFactory.getLogger(OAuth2LoginSuccessHandler.class);
 
     public OAuth2LoginSuccessHandler(JwtUtils jwtUtils, UserDetailsService userDetailsService) {
         this.jwtUtils = jwtUtils;
@@ -25,14 +28,12 @@ public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest req, HttpServletResponse res, Authentication auth) throws IOException, ServletException {
-        // Obtenemos el principal como el tipo que realmente es: OAuth2User
-        OAuth2User oauth2User = (OAuth2User) auth.getPrincipal();
+        log.info("--- ESTOY DENTRO DEL OAuth2LoginSuccessHandler ---"); // <-- AÑADIR ESTE LOG
 
-        // Extraemos el email, que es nuestro identificador único
+        OAuth2User oauth2User = (OAuth2User) auth.getPrincipal();
         String email = oauth2User.getAttribute("email");
 
-        // --- CAMBIO 2: Usamos el email para cargar nuestro propio UserDetails (UsuarioEntity) ---
-        // Esto nos asegura que trabajamos con nuestra entidad y no con la de Spring
+        log.info("Intentando cargar el usuario [{}] para crear el JWT.", email);
         UserDetails userDetails = userDetailsService.loadUserByUsername(email);
 
         // A partir de aquí, el resto del código funciona igual

@@ -4,6 +4,8 @@ import com.gyl.bys.domain.VO.EstadoUsuario;
 import com.gyl.bys.domain.exception.DominioNoPermitidoException;
 import com.gyl.bys.domain.models.abs.BaseBuilder;
 import com.gyl.bys.domain.models.abs.DomainEntity;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.time.LocalDateTime;
 import java.util.Collections;
@@ -20,6 +22,8 @@ public class Usuario extends DomainEntity {
     private boolean isCredentialsNonExpired;
     private LocalDateTime fechaAlta;
     private String googleId;
+
+    private static final Logger log = LoggerFactory.getLogger(Usuario.class);
 
     private Set<Rol> roles = new HashSet<>();
     private Set<Cliente> clientes = new HashSet<>();
@@ -52,6 +56,9 @@ public class Usuario extends DomainEntity {
             throw new IllegalStateException("Solo se puede aprobar un usuario en estado PENDIENTE.");
         }
         this.estado = EstadoUsuario.ACTIVO;
+        this.isAccountNonLocked = true;
+        this.isAccountNonExpired = true;
+        this.isCredentialsNonExpired = true;
     }
 
     public void desactivar() {
@@ -134,11 +141,12 @@ public class Usuario extends DomainEntity {
 
 
     public static Usuario registrarNuevoUsuario(String email, String password, String googleId){
-        verificacionUsuario(email,password,googleId);
+        validarCreacion(email,password,googleId);
 
         return new Builder()
                 .email(email)
                 .password(password)
+                .googleId(googleId)
                 .estado(EstadoUsuario.PENDIENTE)
                 .isAccountNonExpired(true)
                 .isAccountNonLocked(true)
@@ -179,16 +187,27 @@ public class Usuario extends DomainEntity {
                 .build();
     }
 
-    private static void verificacionUsuario(String email, String password, String googleId){
+    private static void validarCreacion(String email, String password, String googleId) {
+        log.info("--- DENTRO de Usuario.validarCreacion. Email: [{}], Password es nulo?: [{}], GoogleId: [{}]",
+                email, (password == null), googleId); // LOG 13
+
         if (email == null || email.isBlank()) {
+            log.error("VALIDACIÓN FALLÓ: El email es nulo o vacío.");
             throw new IllegalArgumentException("El email es obligatorio.");
         }
-        if (password == null || password.isBlank()) {
-            throw new IllegalArgumentException("La contraseña es obligatoria.");
-        }
-        if(!email.endsWith("@gylgroup.com")){
+        if (!email.endsWith("@gylgroup.com")) {
+            log.error("VALIDACIÓN FALLÓ: El dominio no es @gylgroup.com.");
             throw new DominioNoPermitidoException("El dominio de tu mail es invalido");
         }
+
+        boolean isGoogleLogin = googleId != null && !googleId.isBlank();
+        log.info("isGoogleLogin determinado como: [{}]", isGoogleLogin); // LOG 14
+
+        if (!isGoogleLogin && (password == null || password.isBlank())) {
+            log.error("VALIDACIÓN FALLÓ: No es login de Google y la contraseña es nula/vacía.");
+            throw new IllegalArgumentException("La contraseña es obligatoria para el registro normal.");
+        }
+        log.info("Validación de creación superada exitosamente."); // LOG 15
     }
 
     /* ------------------- Builder ------------------- */
@@ -197,7 +216,7 @@ public class Usuario extends DomainEntity {
         super(builder.id);
         this.email = builder.email;
         this.password = builder.password;
-        this.estado = estado;
+        this.estado = builder.estado;
         this.isAccountNonExpired = builder.isAccountNonExpired;
         this.isAccountNonLocked = builder.isAccountNonLocked;
         this.isCredentialsNonExpired = builder.isCredentialsNonExpired;
@@ -213,9 +232,10 @@ public class Usuario extends DomainEntity {
         private String email;
         private String password;
         private EstadoUsuario estado;
-        private boolean isAccountNonExpired;
-        private boolean isAccountNonLocked;
-        private boolean isCredentialsNonExpired;
+        // SOLUCIÓN: Inicializar con valores por defecto
+        private boolean isAccountNonExpired = true;
+        private boolean isAccountNonLocked = true;
+        private boolean isCredentialsNonExpired = true;
         private LocalDateTime fechaAlta;
         private String googleId;
 
@@ -245,9 +265,6 @@ public class Usuario extends DomainEntity {
         protected Usuario buildEntity() {
             if (email == null || email.isBlank()) {
                 throw new IllegalStateException("El email es obligatorio para crear el usuario.");
-            }
-            if (password == null || password.isBlank()) {
-                throw new IllegalStateException("La contraseña es obligatoria para crear el usuario.");
             }
             return new Usuario(this);
         }

@@ -7,6 +7,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import java.security.Key;
@@ -14,6 +15,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Component
 public class JwtUtils {
@@ -27,7 +29,21 @@ public class JwtUtils {
     }
 
     public String generateToken(UserDetails userDetails) {
-        return buildToken(new HashMap<>(), userDetails, jwtExpiration);
+        // Creamos un mapa para los claims adicionales
+        Map<String, Object> extraClaims = new HashMap<>();
+
+        // Asegurarnos de que estamos trabajando con nuestra entidad para acceder a sus métodos
+        if (userDetails instanceof UsuarioEntity) {
+            UsuarioEntity usuario = (UsuarioEntity) userDetails;
+
+            // Añadimos el estado y los roles
+            extraClaims.put("estado", usuario.getEstado().name()); // .name() para convertir el enum a String
+            extraClaims.put("roles", usuario.getAuthorities().stream()
+                    .map(GrantedAuthority::getAuthority)
+                    .collect(Collectors.toList()));
+        }
+
+        return buildToken(extraClaims, userDetails, jwtExpiration);
     }
 
     public boolean isTokenValid(String token, UserDetails userDetails) {
@@ -52,7 +68,7 @@ public class JwtUtils {
         Long userId = ((UsuarioEntity)userDetails).getId();
 
         return Jwts.builder()
-                .setClaims(extraClaims)
+                .setClaims(extraClaims) // Usamos el mapa de claims que creamos
                 .setSubject(String.valueOf(userId))
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + expiration))
