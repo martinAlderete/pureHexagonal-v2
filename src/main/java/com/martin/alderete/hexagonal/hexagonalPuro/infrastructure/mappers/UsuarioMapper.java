@@ -1,7 +1,7 @@
-package com.gyl.bys.infrastructure.mappers;
+package com.martin.alderete.hexagonal.hexagonalPuro.infrastructure.mappers;
 
-import com.gyl.bys.domain.models.Usuario;
-import com.gyl.bys.infrastructure.entities.UsuarioEntity;
+import com.martin.alderete.hexagonal.hexagonalPuro.domain.models.Usuario;
+import com.martin.alderete.hexagonal.hexagonalPuro.infrastructure.entities.UsuarioEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

@@ -1,7 +1,7 @@
-package com.gyl.bys.infrastructure.mappers;
+package com.martin.alderete.hexagonal.hexagonalPuro.infrastructure.mappers;
 
-import com.gyl.bys.domain.models.Cliente;
-import com.gyl.bys.infrastructure.entities.ClienteEntity;
+import com.martin.alderete.hexagonal.hexagonalPuro.domain.models.Cliente;
+import com.martin.alderete.hexagonal.hexagonalPuro.infrastructure.entities.ClienteEntity;
 import org.mapstruct.*;
 @Mapper(componentModel = "spring")
 public interface ClienteMapper {

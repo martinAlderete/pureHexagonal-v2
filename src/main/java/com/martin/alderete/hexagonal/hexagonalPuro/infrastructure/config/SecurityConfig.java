@@ -1,7 +1,7 @@
-package com.gyl.bys.infrastructure.config;
+package com.martin.alderete.hexagonal.hexagonalPuro.infrastructure.config;
 
-import com.gyl.bys.infrastructure.config.security.CustomOAuth2UserService;
-import com.gyl.bys.infrastructure.config.security.OAuth2LoginSuccessHandler;
+import com.martin.alderete.hexagonal.hexagonalPuro.infrastructure.config.security.CustomOAuth2UserService;
+import com.martin.alderete.hexagonal.hexagonalPuro.infrastructure.config.security.OAuth2LoginSuccessHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;

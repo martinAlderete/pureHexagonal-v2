@@ -1,11 +1,11 @@
-package com.gyl.bys.infrastructure.config.security;
+package com.martin.alderete.hexagonal.hexagonalPuro.infrastructure.config.security;
 
-import com.gyl.bys.application.usuario.autenticacion.usecase.port.in.ProcesarAutenticacion;
-import com.gyl.bys.application.usuario.autenticacion.dto.RegistroUsuarioRequest;
-import com.gyl.bys.application.usuario.shared.ResultadoAutenticacion;
-import com.gyl.bys.domain.models.Usuario;
-import com.gyl.bys.infrastructure.entities.UsuarioEntity;
-import com.gyl.bys.infrastructure.mappers.UsuarioMapper;
+import com.martin.alderete.hexagonal.hexagonalPuro.application.usuario.autenticacion.usecase.port.in.ProcesarAutenticacion;
+import com.martin.alderete.hexagonal.hexagonalPuro.application.usuario.autenticacion.dto.RegistroUsuarioRequest;
+import com.martin.alderete.hexagonal.hexagonalPuro.application.usuario.shared.ResultadoAutenticacion;
+import com.martin.alderete.hexagonal.hexagonalPuro.domain.models.Usuario;
+import com.martin.alderete.hexagonal.hexagonalPuro.infrastructure.entities.UsuarioEntity;
+import com.martin.alderete.hexagonal.hexagonalPuro.infrastructure.mappers.UsuarioMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;

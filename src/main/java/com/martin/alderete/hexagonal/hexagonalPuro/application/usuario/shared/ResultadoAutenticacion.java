@@ -1,6 +1,6 @@
-package com.gyl.bys.application.usuario.shared;
+package com.martin.alderete.hexagonal.hexagonalPuro.application.usuario.shared;
 
-import com.gyl.bys.domain.models.Usuario;
+import com.martin.alderete.hexagonal.hexagonalPuro.domain.models.Usuario;
 
 /**
  * Representa la respuesta unificada para cualquier flujo de autenticación o registro.

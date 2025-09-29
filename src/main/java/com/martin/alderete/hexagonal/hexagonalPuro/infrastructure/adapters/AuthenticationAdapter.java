@@ -1,6 +1,6 @@
-package com.gyl.bys.infrastructure.adapters;
+package com.martin.alderete.hexagonal.hexagonalPuro.infrastructure.adapters;
 
-import com.gyl.bys.domain.ports.out.AuthenticationModelPort;
+import com.martin.alderete.hexagonal.hexagonalPuro.domain.ports.out.AuthenticationModelPort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 

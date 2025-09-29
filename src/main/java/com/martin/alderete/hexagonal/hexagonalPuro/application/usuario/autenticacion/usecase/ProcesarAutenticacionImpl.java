@@ -1,15 +1,15 @@
-package com.gyl.bys.application.usuario.autenticacion.usecase;
+package com.martin.alderete.hexagonal.hexagonalPuro.application.usuario.autenticacion.usecase;
 
-import com.gyl.bys.application.usuario.autenticacion.usecase.port.in.ProcesarAutenticacion;
-import com.gyl.bys.application.usuario.autenticacion.dto.RegistroUsuarioRequest;
-import com.gyl.bys.application.usuario.shared.ResultadoAutenticacion;
-import com.gyl.bys.domain.VO.EstadoUsuario;
-import com.gyl.bys.domain.exception.DominioNoPermitidoException;
-import com.gyl.bys.domain.models.Usuario;
-import com.gyl.bys.domain.ports.out.AuthenticationModelPort;
-import com.gyl.bys.domain.ports.out.NotificacionAdminModelPort;
-import com.gyl.bys.domain.ports.out.PasswordEncoderModelPort;
-import com.gyl.bys.domain.ports.out.UsuarioModelPort;
+import com.martin.alderete.hexagonal.hexagonalPuro.application.usuario.autenticacion.usecase.port.in.ProcesarAutenticacion;
+import com.martin.alderete.hexagonal.hexagonalPuro.application.usuario.autenticacion.dto.RegistroUsuarioRequest;
+import com.martin.alderete.hexagonal.hexagonalPuro.application.usuario.shared.ResultadoAutenticacion;
+import com.martin.alderete.hexagonal.hexagonalPuro.domain.VO.EstadoUsuario;
+import com.martin.alderete.hexagonal.hexagonalPuro.domain.exception.DominioNoPermitidoException;
+import com.martin.alderete.hexagonal.hexagonalPuro.domain.models.Usuario;
+import com.martin.alderete.hexagonal.hexagonalPuro.domain.ports.out.AuthenticationModelPort;
+import com.martin.alderete.hexagonal.hexagonalPuro.domain.ports.out.NotificacionAdminModelPort;
+import com.martin.alderete.hexagonal.hexagonalPuro.domain.ports.out.PasswordEncoderModelPort;
+import com.martin.alderete.hexagonal.hexagonalPuro.domain.ports.out.UsuarioModelPort;
 import java.util.Optional;
 
 public class ProcesarAutenticacionImpl implements ProcesarAutenticacion {

@@ -1,6 +1,6 @@
-package com.gyl.bys.domain.ports.out;
+package com.martin.alderete.hexagonal.hexagonalPuro.domain.ports.out;
 
-import com.gyl.bys.domain.models.Usuario;
+import com.martin.alderete.hexagonal.hexagonalPuro.domain.models.Usuario;
 
 public interface NotificacionAdminModelPort {
 

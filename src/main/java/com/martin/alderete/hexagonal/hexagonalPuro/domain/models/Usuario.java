@@ -1,9 +1,9 @@
-package com.gyl.bys.domain.models;
+package com.martin.alderete.hexagonal.hexagonalPuro.domain.models;
 
-import com.gyl.bys.domain.VO.EstadoUsuario;
-import com.gyl.bys.domain.exception.DominioNoPermitidoException;
-import com.gyl.bys.domain.models.abs.BaseBuilder;
-import com.gyl.bys.domain.models.abs.DomainEntity;
+import com.martin.alderete.hexagonal.hexagonalPuro.domain.VO.EstadoUsuario;
+import com.martin.alderete.hexagonal.hexagonalPuro.domain.exception.DominioNoPermitidoException;
+import com.martin.alderete.hexagonal.hexagonalPuro.domain.models.abs.BaseBuilder;
+import com.martin.alderete.hexagonal.hexagonalPuro.domain.models.abs.DomainEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

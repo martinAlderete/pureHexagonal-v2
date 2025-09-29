@@ -1,12 +1,12 @@
-package com.gyl.bys.application.usuario.registrarOProcesarUsuario.usecase;
+package com.martin.alderete.hexagonal.hexagonalPuro.application.usuario.registrarOProcesarUsuario.usecase;
 
-import com.gyl.bys.application.usuario.registrarOProcesarUsuario.dto.RegistroUsuarioRequest;
-import com.gyl.bys.application.usuario.registrarOProcesarUsuario.usecase.port.in.RegistroUsuario;
-import com.gyl.bys.domain.exception.UsuarioPendienteDeAprobacionException;
-import com.gyl.bys.domain.models.Usuario;
-import com.gyl.bys.domain.ports.out.NotificacionAdminModelPort;
-import com.gyl.bys.domain.ports.out.PasswordEncoderModelPort;
-import com.gyl.bys.domain.ports.out.UsuarioModelPort;
+import com.martin.alderete.hexagonal.hexagonalPuro.application.usuario.registrarOProcesarUsuario.dto.RegistroUsuarioRequest;
+import com.martin.alderete.hexagonal.hexagonalPuro.application.usuario.registrarOProcesarUsuario.usecase.port.in.RegistroUsuario;
+import com.martin.alderete.hexagonal.hexagonalPuro.domain.exception.UsuarioPendienteDeAprobacionException;
+import com.martin.alderete.hexagonal.hexagonalPuro.domain.models.Usuario;
+import com.martin.alderete.hexagonal.hexagonalPuro.domain.ports.out.NotificacionAdminModelPort;
+import com.martin.alderete.hexagonal.hexagonalPuro.domain.ports.out.PasswordEncoderModelPort;
+import com.martin.alderete.hexagonal.hexagonalPuro.domain.ports.out.UsuarioModelPort;
 
 import java.util.Optional;
 

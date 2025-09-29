@@ -1,10 +1,10 @@
-package com.gyl.bys.infrastructure.config;
+package com.martin.alderete.hexagonal.hexagonalPuro.infrastructure.config;
 
-import com.gyl.bys.domain.VO.EstadoUsuario; // <-- Importar el enum
-import com.gyl.bys.infrastructure.entities.RolEntity;
-import com.gyl.bys.infrastructure.entities.UsuarioEntity;
-import com.gyl.bys.infrastructure.repositories.RolRepository;
-import com.gyl.bys.infrastructure.repositories.UsuarioRepository;
+import com.martin.alderete.hexagonal.hexagonalPuro.domain.VO.EstadoUsuario; // <-- Importar el enum
+import com.martin.alderete.hexagonal.hexagonalPuro.infrastructure.entities.RolEntity;
+import com.martin.alderete.hexagonal.hexagonalPuro.infrastructure.entities.UsuarioEntity;
+import com.martin.alderete.hexagonal.hexagonalPuro.infrastructure.repositories.RolRepository;
+import com.martin.alderete.hexagonal.hexagonalPuro.infrastructure.repositories.UsuarioRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;

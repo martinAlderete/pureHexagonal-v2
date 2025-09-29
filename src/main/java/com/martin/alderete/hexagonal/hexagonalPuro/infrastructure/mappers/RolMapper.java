@@ -1,7 +1,7 @@
-package com.gyl.bys.infrastructure.mappers;
+package com.martin.alderete.hexagonal.hexagonalPuro.infrastructure.mappers;
 
-import com.gyl.bys.domain.models.Rol;
-import com.gyl.bys.infrastructure.entities.RolEntity;
+import com.martin.alderete.hexagonal.hexagonalPuro.domain.models.Rol;
+import com.martin.alderete.hexagonal.hexagonalPuro.infrastructure.entities.RolEntity;
 import org.mapstruct.*;
 
 @Mapper(componentModel = "spring")

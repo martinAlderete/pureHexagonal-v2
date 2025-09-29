@@ -1,6 +1,6 @@
-package com.gyl.bys.infrastructure.entities;
+package com.martin.alderete.hexagonal.hexagonalPuro.infrastructure.entities;
 
-import com.gyl.bys.domain.VO.EstadoUsuario;
+import com.martin.alderete.hexagonal.hexagonalPuro.domain.VO.EstadoUsuario;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;

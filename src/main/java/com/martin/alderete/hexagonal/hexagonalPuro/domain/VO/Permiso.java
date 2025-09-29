@@ -1,4 +1,4 @@
-package com.gyl.bys.domain.VO;
+package com.martin.alderete.hexagonal.hexagonalPuro.domain.VO;
 
 public record Permiso(String nombre) {
     public Permiso{

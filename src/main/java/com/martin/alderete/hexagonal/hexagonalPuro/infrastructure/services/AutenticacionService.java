@@ -1,9 +1,9 @@
-package com.gyl.bys.infrastructure.services;
+package com.martin.alderete.hexagonal.hexagonalPuro.infrastructure.services;
 
-import com.gyl.bys.application.usuario.autenticacion.usecase.port.in.ProcesarAutenticacion;
-import com.gyl.bys.application.usuario.autenticacion.dto.RegistroUsuarioRequest;
-import com.gyl.bys.application.usuario.shared.ResultadoAutenticacion;
-import com.gyl.bys.infrastructure.controllers.dtos.AuthRequest;
+import com.martin.alderete.hexagonal.hexagonalPuro.application.usuario.autenticacion.usecase.port.in.ProcesarAutenticacion;
+import com.martin.alderete.hexagonal.hexagonalPuro.application.usuario.autenticacion.dto.RegistroUsuarioRequest;
+import com.martin.alderete.hexagonal.hexagonalPuro.application.usuario.shared.ResultadoAutenticacion;
+import com.martin.alderete.hexagonal.hexagonalPuro.infrastructure.controllers.dtos.AuthRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

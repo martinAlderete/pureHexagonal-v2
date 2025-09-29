@@ -1,6 +1,6 @@
-package com.gyl.bys.infrastructure.config.security;
+package com.martin.alderete.hexagonal.hexagonalPuro.infrastructure.config.security;
 
-import com.gyl.bys.infrastructure.entities.UsuarioEntity;
+import com.martin.alderete.hexagonal.hexagonalPuro.infrastructure.entities.UsuarioEntity;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

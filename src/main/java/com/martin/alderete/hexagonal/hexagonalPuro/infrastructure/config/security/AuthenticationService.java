@@ -1,10 +1,10 @@
-package com.gyl.bys.infrastructure.config.security;
+package com.martin.alderete.hexagonal.hexagonalPuro.infrastructure.config.security;
 
 
 
-import com.gyl.bys.infrastructure.controllers.dtos.AuthRequest;
-import com.gyl.bys.infrastructure.controllers.dtos.AuthResponse;
-import com.gyl.bys.infrastructure.repositories.UsuarioRepository;
+import com.martin.alderete.hexagonal.hexagonalPuro.infrastructure.controllers.dtos.AuthRequest;
+import com.martin.alderete.hexagonal.hexagonalPuro.infrastructure.controllers.dtos.AuthResponse;
+import com.martin.alderete.hexagonal.hexagonalPuro.infrastructure.repositories.UsuarioRepository;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;

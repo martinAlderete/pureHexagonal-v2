@@ -1,6 +1,6 @@
-package com.gyl.bys.infrastructure.repositories;
+package com.martin.alderete.hexagonal.hexagonalPuro.infrastructure.repositories;
 
-import com.gyl.bys.infrastructure.entities.UsuarioEntity;
+import com.martin.alderete.hexagonal.hexagonalPuro.infrastructure.entities.UsuarioEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

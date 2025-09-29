@@ -1,4 +1,4 @@
-package com.gyl.bys.infrastructure.entities;
+package com.martin.alderete.hexagonal.hexagonalPuro.infrastructure.entities;
 
 import jakarta.persistence.*;
 import lombok.*;

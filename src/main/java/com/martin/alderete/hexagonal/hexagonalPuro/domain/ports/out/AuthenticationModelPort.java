@@ -1,4 +1,4 @@
-package com.gyl.bys.domain.ports.out;
+package com.martin.alderete.hexagonal.hexagonalPuro.domain.ports.out;
 
 public interface AuthenticationModelPort {
     /**

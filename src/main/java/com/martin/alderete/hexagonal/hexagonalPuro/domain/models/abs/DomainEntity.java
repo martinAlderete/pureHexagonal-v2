@@ -1,4 +1,4 @@
-package com.gyl.bys.domain.models.abs;
+package com.martin.alderete.hexagonal.hexagonalPuro.domain.models.abs;
 
 public abstract class DomainEntity {
 

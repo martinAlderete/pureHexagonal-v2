@@ -1,7 +1,7 @@
-package com.gyl.bys.domain.models;
+package com.martin.alderete.hexagonal.hexagonalPuro.domain.models;
 
-import com.gyl.bys.domain.models.abs.BaseBuilder;
-import com.gyl.bys.domain.models.abs.DomainEntity;
+import com.martin.alderete.hexagonal.hexagonalPuro.domain.models.abs.BaseBuilder;
+import com.martin.alderete.hexagonal.hexagonalPuro.domain.models.abs.DomainEntity;
 
 import java.util.ArrayList;
 import java.util.List;

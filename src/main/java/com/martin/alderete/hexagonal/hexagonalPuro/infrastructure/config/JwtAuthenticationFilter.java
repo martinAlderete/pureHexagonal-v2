@@ -1,7 +1,7 @@
-package com.gyl.bys.infrastructure.config;
+package com.martin.alderete.hexagonal.hexagonalPuro.infrastructure.config;
 
-import com.gyl.bys.infrastructure.config.security.JwtUtils;
-import com.gyl.bys.infrastructure.config.security.UserDetailsServiceImpl;
+import com.martin.alderete.hexagonal.hexagonalPuro.infrastructure.config.security.JwtUtils;
+import com.martin.alderete.hexagonal.hexagonalPuro.infrastructure.config.security.UserDetailsServiceImpl;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

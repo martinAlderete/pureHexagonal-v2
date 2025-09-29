@@ -1,7 +1,7 @@
-package com.gyl.bys.application.usuario.registrarOProcesarUsuario.usecase.port.in;
+package com.martin.alderete.hexagonal.hexagonalPuro.application.usuario.registrarOProcesarUsuario.usecase.port.in;
 
-import com.gyl.bys.application.usuario.registrarOProcesarUsuario.dto.RegistroUsuarioRequest;
-import com.gyl.bys.domain.models.Usuario;
+import com.martin.alderete.hexagonal.hexagonalPuro.application.usuario.registrarOProcesarUsuario.dto.RegistroUsuarioRequest;
+import com.martin.alderete.hexagonal.hexagonalPuro.domain.models.Usuario;
 
 import java.util.Optional;
 

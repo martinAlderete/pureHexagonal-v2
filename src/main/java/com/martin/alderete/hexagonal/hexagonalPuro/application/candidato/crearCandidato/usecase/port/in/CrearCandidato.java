@@ -1,4 +1,4 @@
-package com.gyl.bys.application.candidato.crearCandidato.usecase.port.in;
+package com.martin.alderete.hexagonal.hexagonalPuro.application.candidato.crearCandidato.usecase.port.in;
 
 public interface CrearCandidato {
 }

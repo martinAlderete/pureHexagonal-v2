@@ -1,4 +1,4 @@
-package com.gyl.bys.application.candidato.crearCandidato.usecase;
+package com.martin.alderete.hexagonal.hexagonalPuro.application.candidato.crearCandidato.usecase;
 
 public class CrearCandidatoImpl {
 }

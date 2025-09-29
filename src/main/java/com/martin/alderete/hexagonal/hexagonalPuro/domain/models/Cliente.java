@@ -1,6 +1,6 @@
-package com.gyl.bys.domain.models;
+package com.martin.alderete.hexagonal.hexagonalPuro.domain.models;
 
-import com.gyl.bys.domain.models.abs.DomainEntity;
+import com.martin.alderete.hexagonal.hexagonalPuro.domain.models.abs.DomainEntity;
 
 public class Cliente extends DomainEntity {
 

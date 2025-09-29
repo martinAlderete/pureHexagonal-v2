@@ -18,14 +18,14 @@ import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.noClasses;
  * esta clase define las reglas de arquitecture,lo permitido y no lo permitido
  * esto es lo que va defender la arquitectura de cualquier uso indebido
  * */
-@AnalyzeClasses(packages = "com.gyl.bys")
+@AnalyzeClasses(packages = "com.martin.alderete.hexagonal.hexagonalPuro")
 public class ArchitectureTest {
 
     //----------------------------  Condición personalizada   ----------------------------
 
 
     private static final ArchCondition<JavaClass> usarSoloAnotacionesDeJava =
-            new ArchCondition<>("usar solo anotaciones de java.*, javax.* o com.gyl.bys") {
+            new ArchCondition<>("usar solo anotaciones de java.*, javax.* o com.martin.alderete.hexagonal.hexagonalPuro") {
                 @Override
                 public void check(JavaClass item, ConditionEvents events) {
                     // Anotaciones en la clase
@@ -55,7 +55,7 @@ public class ArchitectureTest {
                                               ConditionEvents events) {
                     for (JavaAnnotation<?> annotation : annotations) {
                         String name = annotation.getRawType().getFullName();
-                        if (!(name.startsWith("java.") || name.startsWith("javax.") || name.startsWith("com.gyl.bys"))) {
+                        if (!(name.startsWith("java.") || name.startsWith("javax.") || name.startsWith("com.martin.alderete.hexagonal.hexagonalPuro"))) {
                             String message = String.format(
                                     "La clase %s usa una anotación no permitida en %s: %s",
                                     owner.getFullName(), target, name

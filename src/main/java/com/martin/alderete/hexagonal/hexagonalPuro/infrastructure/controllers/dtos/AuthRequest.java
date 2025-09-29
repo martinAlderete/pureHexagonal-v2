@@ -1,4 +1,4 @@
-package com.gyl.bys.infrastructure.controllers.dtos;
+package com.martin.alderete.hexagonal.hexagonalPuro.infrastructure.controllers.dtos;
 
 public record AuthRequest(String email, String password) {
 }
