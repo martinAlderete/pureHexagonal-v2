@@ -17,9 +17,8 @@ import java.io.IOException;
 @Component
 public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
     private final JwtUtils jwtUtils;
-    // --- CAMBIO 1: Inyectamos UserDetailsService para poder buscar a nuestro usuario ---
     private final UserDetailsService userDetailsService;
-    private static final Logger log = LoggerFactory.getLogger(OAuth2LoginSuccessHandler.class);
+
 
     public OAuth2LoginSuccessHandler(JwtUtils jwtUtils, UserDetailsService userDetailsService) {
         this.jwtUtils = jwtUtils;
@@ -28,15 +27,15 @@ public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest req, HttpServletResponse res, Authentication auth) throws IOException, ServletException {
-        log.info("--- ESTOY DENTRO DEL OAuth2LoginSuccessHandler ---"); // <-- AÑADIR ESTE LOG
+
 
         OAuth2User oauth2User = (OAuth2User) auth.getPrincipal();
         String email = oauth2User.getAttribute("email");
 
-        log.info("Intentando cargar el usuario [{}] para crear el JWT.", email);
+
         UserDetails userDetails = userDetailsService.loadUserByUsername(email);
 
-        // A partir de aquí, el resto del código funciona igual
+
         String token = jwtUtils.generateToken(userDetails);
         String targetUrl = UriComponentsBuilder.fromUriString("http://localhost:4200/login-success")
                 .queryParam("token", token).build().toUriString();
